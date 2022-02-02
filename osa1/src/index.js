@@ -1,17 +1,67 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+const Header =(props) => {
+  return (
+    <div>
+      <h1>{props.kurssi}</h1>
+    </div>
+  )
+}
+
+const Contents =(props) => {
+  return (
+    <div>
+      <Part osa={props.osa[0].name} teht={props.teht[0].exercises} />
+      <Part osa={props.osa[1].name} teht={props.teht[1].exercises} />
+      <Part osa={props.osa[2].name} teht={props.teht[2].exercises} />
+    </div>
+  )
+}
+
+const Total = (props) => {
+  return (
+    <div>
+      <p>{props.exc[0].exercises + props.exc[1].exercises + props.exc[0].exercises} </p>
+    </div>
+  )
+}
+
+const Part =(props) => {
+  return (
+    <div>
+      <p>{props.osa} {props.teht}</p>
+    </div>
+  )
+}
+
+const App = () => {
+  const course = 'Superadvanced web and mobile programming'
+  const parts = [
+    {
+      name: 'Basics of React',
+      exercises: 8
+    },
+    {
+      name: 'Using props',
+      exercises: 10
+    },
+    {
+      name: 'Component states',
+      exercises: 12
+    }
+  ]
+
+  return (
+    <div>
+      <Header kurssi={course}/>
+      <Contents osa={parts} teht={parts}/>
+      <Total exc={parts} />
+    </div>
+  )
+}
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <App />,
   document.getElementById('root')
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+)
