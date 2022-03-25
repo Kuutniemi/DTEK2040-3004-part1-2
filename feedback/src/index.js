@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import ReactDOM, { render } from "react-dom";
 import './index.css';
 
@@ -11,10 +11,9 @@ const Header = (props) => {
 };
 
 const Buttons = (props) => {
+  //const [summa, setSumma] = useState(props.arvo[index])
   const funktio = (index) => {
-    return (
-      console.log('painettu', index)
-    )
+    console.log('painettu', index)
   }
   return (
    <div>
@@ -22,7 +21,7 @@ const Buttons = (props) => {
        props.nappula.map(function (parts, index){
          return (
            <div key={index}>
-             <button type='button' onClick={({index}) => funktio(index)}>{parts.name}</button>
+             <button type='button' onClick={() => funktio(index)}>{parts.name}</button>
            </div>
          )
        })

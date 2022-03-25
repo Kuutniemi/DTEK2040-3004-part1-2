@@ -15,7 +15,7 @@ code {
 table,
 td,
 tr {
-  //background-color: grey;
+  background-color: lightgrey;
   padding: 0;
   border: 1px solid black;
   width: 25%;
