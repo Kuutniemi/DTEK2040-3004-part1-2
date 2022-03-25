@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ReactDOM, { render } from "react-dom";
-import './index.css';
+import "./index.css";
 
 const Header = (props) => {
   return (
@@ -10,36 +10,31 @@ const Header = (props) => {
   );
 };
 
-const Buttons = (props) => {
-  //const [summa, setSumma] = useState(props.arvo[index])
-  const funktio = (index) => {
-    console.log('painettu', index)
+class Buttonss extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "",
+    };
   }
-  return (
-   <div>
-     {
-       props.nappula.map(function (parts, index){
-         return (
-           <div key={index}>
-             <button type='button' onClick={() => funktio(index)}>{parts.name}</button>
-           </div>
-         )
-       })
-     }
-   </div>
-  );
-};
+  render() {
+    return (
+      <div>
+        {this.props.data.map((nappula) => {
+          return <button>{nappula.name}</button>;
+        })}
+      </div>
+    );
+  }
+}
 
 const Statistiikka = (props) => {
-  return(
+  return (
     <div>
-      <h1>
-        Statistiikka
-      </h1>
-      {
-        props.arvo.map(function (parts, index){
-          return (
-            <div key={index}>
+      <h1>Statistiikka</h1>
+      {props.arvo.map(function (parts, index) {
+        return (
+          <div key={index}>
             <table className="table">
               <tbody>
                 <tr>
@@ -47,18 +42,56 @@ const Statistiikka = (props) => {
                   <td>{parts.summa}</td>
                 </tr>
               </tbody>
-              
             </table>
-            </div>
-          )
-        })
-      }
+          </div>
+        );
+      })}
     </div>
-  )
+  );
+};
+
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      parts: "",
+    };
+  }
+  data() {
+    this.setState({
+      name: "Anna palautetta",
+      parts: [
+        {
+          name: "hyvä",
+          value: 1,
+          summa: 0,
+        },
+        {
+          name: "neutraali",
+          value: 0,
+          summa: 0,
+        },
+        {
+          name: "huono",
+          value: -1,
+          summa: 0,
+        },
+      ],
+    });
+  }
+  render() {
+    return (
+      <div>
+        <Header title={this.state.name} />
+        <Buttons nappula={this.state.parts} />
+        <Statistiikka arvo={this.state.parts} />
+        <Buttonss data={this.state.parts} />
+      </div>
+    );
+  }
 }
 
-
-const App = () => {
+const Apps = () => {
   const data = {
     name: "Anna palautetta",
     parts: [
@@ -85,6 +118,11 @@ const App = () => {
       <Header title={data.name} />
       <Buttons nappula={data.parts} />
       <Statistiikka arvo={data.parts} />
+      <Buttonss
+        name={data.parts.name}
+        value={data.parts.value}
+        summa={data.parts.summa}
+      />
     </div>
   );
 };
