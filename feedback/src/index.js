@@ -23,7 +23,7 @@ const Buttons = (props) => {
        props.data.map(function (parts, index){
          return (
            <div key={index}>
-             <button type='button' onClick={() => funktio(parts.name)}>{parts.name}</button>
+             <button type='button' onClick={() => props.aseta(5)}>{parts.name}</button>
            </div>
          )
        })
@@ -80,10 +80,17 @@ class Apps extends React.Component {
       ],
     };
   }
+  asetaArvoon = (arvo) => {
+    console.log(this.state.parts)
+    return () => {
+      this.setState({parts: {summa: this.state.data.summa + arvo}})
+      console.log(this.state.parts)
+    }
+  }
   render() {
     return(
       <div>
-        <Buttons data={this.state.parts} />
+        <Buttons data={this.state.parts} aseta={this.asetaArvoon}/>
         <Statistiikka data={this.state.parts}/>
       </div>
     )
