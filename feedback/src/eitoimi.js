@@ -1,34 +1,30 @@
-import React, { useState , Component} from "react";
+import React, { useState, Component } from "react";
 import ReactDOM, { render } from "react-dom";
-import './index.css';
+import "./index.css";
 
 class Buttons extends React.Component {
   constructor(props) {
     super(props);
   }
   render() {
+    console.log('ju')
+    const name = this.props.data.name
+    const value = this.props.data.value
+    const summa = this.props.data.summa
     return (
       <div>
-        { this.props.data.map(nappula => {
-          return (
-            console.log('tapahtuuko'),
-            <button key={nappula.value}>{nappula.name}</button>
-          )
-        })}
+        {console.log('moi')}
+        {console.log(name, value, summa)}
+        <button>{name}</button>
       </div>
-    )
+    );
   }
 }
 
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = ({
-      parts: [],
-    });
-  }
-  dataus () {
-    this.setState({
+  constructor(props) {
+    super(props);
+    this.state = {
       parts: [
         {
           name: "hyvä",
@@ -46,15 +42,15 @@ class App extends React.Component {
           summa: 0,
         },
       ],
-    });
+    };
   }
+
   render() {
     return (
       <div>
-        <Buttons data={this.state.parts} />
+        <Buttons data={this.state} />
       </div>
     );
   }
 }
-
 ReactDOM.render(<App />, document.getElementById("root"));

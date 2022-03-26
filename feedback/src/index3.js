@@ -10,35 +10,29 @@ const Header = (props) => {
   );
 };
 
-const Buttons = (props) => {
-  //const [summa, setSumma] = useState(props.arvo[index])
-  const funktio = (index) => {
-    console.log("painettu", index);
-  };
-  return (
-    <div>
-      <h1>Anna palautetta</h1>
+class Buttonss extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "",
+    };
+  }
+  render() {
+    return (
       <div>
-     {
-       props.data.map(function (parts, index){
-         return (
-           <div key={index}>
-             <button type='button' onClick={() => funktio(parts.name)}>{parts.name}</button>
-           </div>
-         )
-       })
-     }
-   </div>
-    </div>
-    
-  );
-};
+        {this.props.data.map((nappula) => {
+          return <button>{nappula.name}</button>;
+        })}
+      </div>
+    );
+  }
+}
 
 const Statistiikka = (props) => {
   return (
     <div>
       <h1>Statistiikka</h1>
-      {props.data.map(function (parts, index) {
+      {props.arvo.map(function (parts, index) {
         return (
           <div key={index}>
             <table className="table">
@@ -56,10 +50,15 @@ const Statistiikka = (props) => {
   );
 };
 
-class Apps extends React.Component {
-  constructor(props) {
-    super(props);
+class App extends React.Component {
+  constructor() {
+    super();
     this.state = {
+      parts: "",
+    };
+  }
+  data() {
+    this.setState({
       name: "Anna palautetta",
       parts: [
         {
@@ -78,19 +77,21 @@ class Apps extends React.Component {
           summa: 0,
         },
       ],
-    };
+    });
   }
   render() {
-    return(
+    return (
       <div>
-        <Buttons data={this.state.parts} />
-        <Statistiikka data={this.state.parts}/>
+        <Header title={this.state.name} />
+        <Buttons nappula={this.state.parts} />
+        <Statistiikka arvo={this.state.parts} />
+        <Buttonss data={this.state.parts} />
       </div>
-    )
+    );
   }
 }
 
-const App = () => {
+const Apps = () => {
   const data = {
     name: "Anna palautetta",
     parts: [
@@ -117,8 +118,13 @@ const App = () => {
       <Header title={data.name} />
       <Buttons nappula={data.parts} />
       <Statistiikka arvo={data.parts} />
+      <Buttonss
+        name={data.parts.name}
+        value={data.parts.value}
+        summa={data.parts.summa}
+      />
     </div>
   );
 };
 
-ReactDOM.render(<Apps />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"));
