@@ -116,35 +116,5 @@ class Apps extends React.Component {
   }
 }
 
-const App = () => {
-  const data = {
-    name: "Anna palautetta",
-    parts: [
-      {
-        name: "hyvä",
-        value: 1,
-        summa: 0,
-      },
-      {
-        name: "neutraali",
-        value: 0,
-        summa: 0,
-      },
-      {
-        name: "huono",
-        value: -1,
-        summa: 0,
-      },
-    ],
-  };
-
-  return (
-    <div>
-      <Header title={data.name} />
-      <Buttons nappula={data.parts} />
-      <Statistiikka arvo={data.parts} />
-    </div>
-  );
-};
 
 ReactDOM.render(<Apps />, document.getElementById("root"));
