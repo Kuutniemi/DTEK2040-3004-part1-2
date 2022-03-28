@@ -17,7 +17,7 @@ const Buttons = (props) => {
   };
   return (
     <div>
-      <h1>Anna palautetta</h1>
+      <h1>{props.title}</h1>
       <div>
         {props.data.map(function (parts, index) {
           return (
@@ -98,41 +98,33 @@ class Apps extends React.Component {
       }
     };
   }
+  
 
+  //Paras
   lisaa1 = (arvo) => {
-    console.log("lisaa1", arvo);
-    console.log(this.state);
+  console.log("lisaa1", arvo);
+  console.log(this.state);
     //console.log(this.state.parts);
-    return this.setState(
-      ...this.state,
-      {
-        parts: [...this.state, { summa: this.state.parts[arvo].summa + 1 }],
-      },
-      console.log(this.state),
-      console.log(this.state.summa)
-    );
-  };
+    const newState = this.state.parts
+    newState[arvo].summa = this.state.parts[arvo].summa +1
+    return (this.setState(newState))
+    };
 
-  nimea = (arvo) => {
-    console.log(this.state.name);
-    console.log(this.state);
-    return this.setState({
-      name: (this.state.name = arvo),
+  setData = (arvo) => {
+    this.state.parts.map(item => item.summa === arvo ?{...item, summa: this.state.parts[arvo].summa +1}:item)
+  }
+  
+  //Uudellen nimeää Header
+  nimee = (arvo) => {
+    return this.setState(console.log(this.state), {
+      name: (this.state.name = [arvo]),
     });
   };
 
-  asetaArvoon = (arvo) => {
-    console.log(this.state.parts[arvo].name, this.state.parts[arvo].summa);
-    console.log(this.state);
-    return this.setState([
-      {
-        parts: [{ summa: this.state.parts[arvo].summa + 1 }],
-      },
-    ]);
-  };
   render() {
     return (
       <div>
+        <Header title={this.state.name} />
         <Buttons
           data={this.state.parts}
           aseta={this.asetaArvoon}
