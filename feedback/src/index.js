@@ -74,31 +74,11 @@ class Apps extends React.Component {
         {
           name: "huono",
           value: -1,
-          summa: 4,
+          summa: 0,
         },
       ],
     };
-    const joku = (props) => {
-      const initialState = {
-        name: String,
-        value: Number,
-        summa: Number,
-      };
-
-      function reducer(state = initialState, action) {
-        switch (action.type) {
-          case "VAIHDA":
-            return {
-              ...state,
-              summa: action.summa,
-            };
-          default:
-            return state;
-        }
-      }
-    };
   }
-  
 
   //Paras
   lisaa1 = (arvo) => {
@@ -108,11 +88,9 @@ class Apps extends React.Component {
     const newState = this.state.parts
     newState[arvo].summa = this.state.parts[arvo].summa +1
     return (this.setState(newState))
-    };
+  };
+  
 
-  setData = (arvo) => {
-    this.state.parts.map(item => item.summa === arvo ?{...item, summa: this.state.parts[arvo].summa +1}:item)
-  }
   
   //Uudellen nimeää Header
   nimee = (arvo) => {
