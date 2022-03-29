@@ -55,6 +55,25 @@ const Statistiikka = (props) => {
   );
 };
 
+const Keskiarvo = (props) => {
+  return (
+    <div>
+      <table key={888}>
+        <tbody>
+        <tr>
+          <td>
+            keskiarvo
+          </td>
+          <td>
+            {props.ka.avg}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
 class Apps extends React.Component {
   constructor(props) {
     super(props);
@@ -77,8 +96,14 @@ class Apps extends React.Component {
           summa: 0,
         },
       ],
+      avg: 0.,
     };
   }
+
+  /*componentDidUpdate(prevState) {
+    if (this.state.parts !== prevState.parts){
+      this.keskiarvo()
+  }}*/
 
   //Paras
   lisaa1 = (arvo) => {
@@ -87,10 +112,24 @@ class Apps extends React.Component {
     //console.log(this.state.parts);
     const newState = this.state.parts
     newState[arvo].summa = this.state.parts[arvo].summa +1
-    return (this.setState(newState))
+    return (this.setState(newState)),
+    this.keskiarvo(arvo)
   };
   
-
+  keskiarvo = (arvo) => {
+    console.log('ave',this.state.avg)
+    var sum = this.state.avg
+    var jakaja = 0
+    var ka = sum / jakaja
+    console.log(jakaja)
+    this.state.parts.forEach(summa => {
+      jakaja +=summa
+    });
+    sum += (this.state.parts[arvo].value) 
+    return this.setState({
+      avg: sum 
+    })
+  }
   
   //Uudellen nimeää Header
   nimee = (arvo) => {
@@ -107,10 +146,9 @@ class Apps extends React.Component {
           data={this.state.parts}
           aseta={this.asetaArvoon}
           lisaa={this.lisaa1}
-          nimea={this.nimea}
-          reducer={""}
         />
-        <Statistiikka data={this.state.parts} />
+        <Statistiikka data={this.state.parts} ka={this.keskiarvo}/>
+        <Keskiarvo  ka={this.state}/>
       </div>
     );
   }
