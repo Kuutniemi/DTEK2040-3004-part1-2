@@ -11,10 +11,6 @@ const Header = (props) => {
 };
 
 const Buttons = (props) => {
-  //const [summa, setSumma] = useState(props.arvo[index])
-  const funktio = (index) => {
-    console.log("painettu", index);
-  };
   return (
     <div>
       <h1>{props.title}</h1>
@@ -58,17 +54,33 @@ const Statistiikka = (props) => {
 const Keskiarvo = (props) => {
   return (
     <div>
+      <br />
       <table key={888}>
         <tbody>
           <tr>
             <td>keskiarvo</td>
-            <td>{props.ka.pos}%</td>
+            <td>{props.ka.avg}</td>
           </tr>
         </tbody>
       </table>
     </div>
   );
 };
+
+const Prosentti = (props) => {
+  return(
+    <div>
+      <table key={88}>
+        <tbody>
+          <tr>
+            <td>positiivisia</td>
+            <td>{props.ka.pos}%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  )
+}
 
 class Apps extends React.Component {
   constructor(props) {
@@ -150,6 +162,7 @@ class Apps extends React.Component {
         />
         <Statistiikka data={this.state.parts} ka={this.keskiarvo} />
         <Keskiarvo ka={this.state} />
+        <Prosentti ka={this.state} />
       </div>
     );
   }
