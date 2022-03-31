@@ -96,7 +96,8 @@ class Apps extends React.Component {
           summa: 0,
         },
       ],
-      avg: 0.,
+      avg: 0,
+      list: []
     };
   }
 
@@ -117,19 +118,21 @@ class Apps extends React.Component {
   };
   
   keskiarvo = (arvo) => {
-    console.log('ave',this.state.avg)
-    var sum = this.state.avg
-    var jakaja = 0
-    var ka = sum / jakaja
-    console.log(jakaja)
-    this.state.parts.forEach(summa => {
-      jakaja +=summa
-    });
-    sum += (this.state.parts[arvo].value) 
+    const list = this.state.list
+    list.push(this.state.parts[arvo].value)
+    const ave = arr => arr.reduce((a,b) => a+b,0) / arr.lenght
+    const num = ave(list).toFixed(1)
+    console.log(list)
+    console.log(num)
     return this.setState({
-      avg: sum 
+      list: list,
+      avg: num
     })
   }
+
+  // Oikea tapa laskea keskiarvo eli toimisi. ongelma lisätä listaan x määrä (1,0,-1)
+  // const ave = arr => arr.reduce((a,b) => a+b,0 ) / arr.lenght
+  // console.log((array).toFixed(1))
   
   //Uudellen nimeää Header
   nimee = (arvo) => {
