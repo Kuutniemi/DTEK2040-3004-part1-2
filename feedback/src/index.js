@@ -60,14 +60,10 @@ const Keskiarvo = (props) => {
     <div>
       <table key={888}>
         <tbody>
-        <tr>
-          <td>
-            keskiarvo
-          </td>
-          <td>
-            {props.ka.avg}
-          </td>
-        </tr>
+          <tr>
+            <td>keskiarvo</td>
+            <td>{props.ka.pos}%</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -97,43 +93,45 @@ class Apps extends React.Component {
         },
       ],
       avg: 0,
-      list: []
+      pos: 0,
+      list: [],
     };
   }
 
-  /*componentDidUpdate(prevState) {
-    if (this.state.parts !== prevState.parts){
-      this.keskiarvo()
-  }}*/
-
   //Paras
   lisaa1 = (arvo) => {
-  console.log("lisaa1", arvo);
-  console.log(this.state);
-    //console.log(this.state.parts);
-    const newState = this.state.parts
-    newState[arvo].summa = this.state.parts[arvo].summa +1
-    return (this.setState(newState)),
-    this.keskiarvo(arvo)
+    console.log("lisaa1", arvo);
+    console.log(this.state);
+    const newState = this.state.parts;
+    newState[arvo].summa = this.state.parts[arvo].summa + 1;
+    return this.setState(newState), this.keskiarvo(arvo), this.positiiviset();
   };
-  
+
   keskiarvo = (arvo) => {
-    const list = this.state.list
-    list.push(this.state.parts[arvo].value)
-    const ave = arr => arr.reduce((a,b) => a+b,0) / arr.lenght
-    const num = ave(list).toFixed(1)
-    console.log(list)
-    console.log(num)
+    const list = this.state.list;
+    list.push(this.state.parts[arvo].value);
+    const ave = (arr) => arr.reduce((a, b) => a + b, 0) / list.length;
+    console.log(list);
+    console.log(ave(list).toFixed(1));
     return this.setState({
-      list: list,
-      avg: num
-    })
+      avg: ave(list).toFixed(1),
+    });
+  };
+
+  positiiviset() {
+    const list = this.state.list;
+    const posArr = list.filter((num) => num > 0);
+    console.log("PosArr", posArr);
+    const pros = (posArr.length / this.state.list.length) * 100;
+    return this.setState({
+      pos: pros.toFixed(1),
+    });
   }
 
   // Oikea tapa laskea keskiarvo eli toimisi. ongelma lisätä listaan x määrä (1,0,-1)
   // const ave = arr => arr.reduce((a,b) => a+b,0 ) / arr.lenght
   // console.log((array).toFixed(1))
-  
+
   //Uudellen nimeää Header
   nimee = (arvo) => {
     return this.setState(console.log(this.state), {
@@ -150,12 +148,11 @@ class Apps extends React.Component {
           aseta={this.asetaArvoon}
           lisaa={this.lisaa1}
         />
-        <Statistiikka data={this.state.parts} ka={this.keskiarvo}/>
-        <Keskiarvo  ka={this.state}/>
+        <Statistiikka data={this.state.parts} ka={this.keskiarvo} />
+        <Keskiarvo ka={this.state} />
       </div>
     );
   }
 }
-
 
 ReactDOM.render(<Apps />, document.getElementById("root"));
