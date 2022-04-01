@@ -30,28 +30,40 @@ const Buttons = (props) => {
 };
 
 const Statistiikka = (props) => {
-  return (
+  if (!props.render) {
+    return (
+      <div>
+        <h1>Statistiikka</h1>
+        Ei näytettävää statistiikkaa
+      </div>
+    )
+  } else {
+    return(
     <div>
       <h1>Statistiikka</h1>
-      {props.data.map(function (parts, index) {
-        return (
-          <div key={index}>
-            <table className="table">
-              <tbody>
-                <tr>
-                  <td>{parts.name}</td>
-                  <td>{parts.summa}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        );
-      })}
-    </div>
-  );
+    {props.data.map(function (parts, index) {
+      return (
+        <div key={index}>
+          <table className="table">
+            <tbody>
+              <tr>
+                <td>{parts.name}</td>
+                <td>{parts.summa}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      );
+    })}
+  </div>)}
+
+
 };
 
 const Keskiarvo = (props) => {
+  if (!props.render) {
+    return null
+  } else {
   return (
     <div>
       <br />
@@ -64,10 +76,13 @@ const Keskiarvo = (props) => {
         </tbody>
       </table>
     </div>
-  );
+  )};
 };
 
 const Prosentti = (props) => {
+  if (!props.render) {
+    return null
+  } else {
   return(
     <div>
       <table key={88}>
@@ -79,13 +94,14 @@ const Prosentti = (props) => {
         </tbody>
       </table>
     </div>
-  )
+  )}
 }
 
 class Apps extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      render: false,
       name: "Anna palautetta",
       parts: [
         {
@@ -112,28 +128,25 @@ class Apps extends React.Component {
 
   //Paras
   lisaa1 = (arvo) => {
-    console.log("lisaa1", arvo);
-    console.log(this.state);
     const newState = this.state.parts;
     newState[arvo].summa = this.state.parts[arvo].summa + 1;
     return this.setState(newState), this.keskiarvo(arvo), this.positiiviset();
   };
 
   keskiarvo = (arvo) => {
+    console.log(this.state.render)
     const list = this.state.list;
     list.push(this.state.parts[arvo].value);
     const ave = (arr) => arr.reduce((a, b) => a + b, 0) / list.length;
-    console.log(list);
-    console.log(ave(list).toFixed(1));
     return this.setState({
       avg: ave(list).toFixed(1),
+      render: true
     });
   };
 
   positiiviset() {
     const list = this.state.list;
     const posArr = list.filter((num) => num > 0);
-    console.log("PosArr", posArr);
     const pros = (posArr.length / this.state.list.length) * 100;
     return this.setState({
       pos: pros.toFixed(1),
@@ -160,9 +173,9 @@ class Apps extends React.Component {
           aseta={this.asetaArvoon}
           lisaa={this.lisaa1}
         />
-        <Statistiikka data={this.state.parts} ka={this.keskiarvo} />
-        <Keskiarvo ka={this.state} />
-        <Prosentti ka={this.state} />
+        <Statistiikka data={this.state.parts} ka={this.keskiarvo}  render={this.state.render}/>
+        <Keskiarvo ka={this.state} render={this.state.render}/>
+        <Prosentti ka={this.state} render={this.state.render}/>
       </div>
     );
   }
