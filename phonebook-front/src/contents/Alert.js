@@ -1,13 +1,16 @@
-const Alert = ({alert}) => {
-    if (alert === null) {
-        return null
-    } else {
+import React from "react";
+
+const Alert = ({ alert }) => {
+  if (alert === null) {
+    return null;
+  } else {
     return (
-        <div>
+      <div>
         <strong>Nimellä '{alert}' löytyy jo yhteystieto</strong>
         <br />
-        </div>
-    )
-}}
+      </div>
+    );
+  }
+};
 
-export default Alert
+export default Alert;

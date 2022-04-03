@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react' //useEffect
 import Contact from './contents/Contact'
 import Alert from './contents/Alert'
+import axios from 'axios'
 
 //import axios from 'axios'
 
@@ -11,6 +12,16 @@ const App = () => {
   const [alert, setAlert] = useState(null)
   //const [showAll, setShowAll] = useState(true)
 
+  const eventHandler = (response) => {
+    console.log('promise fulfilled')
+    //setNewName({ name: response.data })
+    //setNewNumber({number: response.data})
+  }
+  
+  const promise = axios.get('http://localhost:3001/persons')
+  
+  promise.then(eventHandler)
+  
   /*useEffect(() => {
     console.log('effect')
     axios
