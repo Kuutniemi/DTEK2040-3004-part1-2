@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Contact from './contents/Contact'
+import Alert from './contents/Alert'
 
 //import axios from 'axios'
 
@@ -7,6 +8,7 @@ const App = () => {
   const [contacts, setContacts] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+  const [alert, setAlert] = useState(null)
   //const [showAll, setShowAll] = useState(true)
 
   /*useEffect(() => {
@@ -25,9 +27,10 @@ const App = () => {
     const checkIfExist = obj => obj.name === newName;
     if (contacts.some(checkIfExist)) 
     {
-      alert("Nimellä löytyy jo yhteystieto")
+      setAlert(newName)
     } else 
-    { const ContactObject = {
+    { setAlert(null)
+      const ContactObject = {
       name: newName,
       number: newNumber,
       //id: contacts.length + 1,
@@ -60,17 +63,14 @@ const App = () => {
   return (
     <div>
       <h1>Puhelinluettelo</h1>
+      <Alert alert={alert}></Alert>
       <form onSubmit={addContact}>
-        Nimi: <input value={newName} onChange={handleNameChange}/> <div>
-        Numero<input value={newNumber} onChange={handleNumberChange}/></div>
+        Nimi: <input value={newName} onChange={handleNameChange} required/> <div>
+        Numero<input value={newNumber} onChange={handleNumberChange} required/></div>
         <button type="submit">save</button>
       </form>  
-      <h1>Yhteystiedot</h1>
-      <ul>
-        {contacts.map(yht => 
-            <Contact key={yht.name} yht={yht} />
-        )}
-      </ul>
+      <h1>Yhteystiedot</h1> 
+      <Contact data={contacts}/>    
     </div>
   )
 }

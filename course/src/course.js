@@ -20,4 +20,3 @@ const Course = {
 };
 
 export default Course;
-// VITUSTI KESKEN

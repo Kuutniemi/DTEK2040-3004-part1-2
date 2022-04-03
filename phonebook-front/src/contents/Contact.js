@@ -1,11 +1,19 @@
 import React from "react";
+import App from "../App";
 
-const Contact = ({ yht }) => {
+const Contact = ({ data }) => {
   return (
-    <li>
-      <strong>Nimi: </strong> {yht.name}
-      <strong> Numero: </strong> {yht.number}
-    </li>
+    <div>
+       <ul>
+        {data.map(yht => 
+            <li key={yht.name}>
+            <strong>Nimi: </strong> {yht.name}
+            <strong> Numero: </strong> {yht.number}
+            </li>
+        )}
+      </ul>
+    </div>
+    
   );
 };
 
