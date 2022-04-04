@@ -1,3 +1,4 @@
+//Data
 const Course = {
   name: "Superadvanced web and mobile programming",
   parts: [
