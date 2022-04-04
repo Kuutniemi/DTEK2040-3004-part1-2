@@ -1,6 +1,6 @@
 import React from "react";
 
-const Contact = ({ data }) => {
+const Yhteystiedot = ({ data }) => {
   return (
     <div>
       <ul>
@@ -15,4 +15,4 @@ const Contact = ({ data }) => {
   );
 };
 
-export default Contact;
+export default Yhteystiedot;
