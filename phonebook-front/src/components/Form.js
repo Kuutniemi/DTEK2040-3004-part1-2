@@ -54,6 +54,7 @@ class Form extends React.Component {
           <br />
           Numero:
           <input
+            type="number"
             value={this.props.state.newNumber}
             onChange={this.handleNumberChange}
             required
